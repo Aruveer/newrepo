@@ -4,32 +4,29 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch: # Allows manual triggering
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # Define a matrix with 3 variants
         node-version: [18, 20, 22]
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # This step includes the required dynamic identifier
-      - name: Build for Node ${{ matrix.node-version }} (matrix-c064f21)
+      # Required dynamic identifier
+      - name: Build for Node ${{ matrix.node-version }} (matrix-b4cd76a)
         run: |
           echo "Simulating build for Node.js version ${{ matrix.node-version }}"
           echo "This is the build output." > build_output.txt
-          echo "Identifier: matrix-c064f21" >> build_output.txt
+          echo "Identifier: matrix-b4cd76a" >> build_output.txt
 
-      # This step uploads an artifact with the required dynamic prefix
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          # Use the prefix and include the matrix variant in the name
-          name: build-c064f21-node-${{ matrix.node-version }}
+          name: build-b4cd76a-node-${{ matrix.node-version }}
           path: build_output.txt
           retention-days: 7
